@@ -41,7 +41,7 @@ if menu == "추가하기":
             "Year": year,
             "Genre": genre,
             "Collaborators": collaborators,
-            "Orchestra": orchestra
+            "Orchestra": orchestra,
             "location": location
         }
 
