@@ -74,28 +74,30 @@ elif menu == "수정하기":
     lp_titles = df["Title"].tolist()
     lp_to_edit = st.selectbox("수정할 LP 선택", lp_titles)
 
-    # 선택된 LP 데이터 로드
-    if lp_to_edit:
-        selected_lp = df[df["Title"] == lp_to_edit].iloc[0]
-        
-        # 수정할 값 입력 폼
-        title = st.text_input("앨범 제목", value=selected_lp["Title"])
-        artist = st.text_input("아티스트", value=selected_lp["Artist"])
-        year = st.text_input("발매 연도", value=selected_lp["Year"])
-        genre = st.text_input("장르", value=selected_lp["Genre"])
-        collaborators = st.text_input("협연자", value=selected_lp["Collaborators"])
-        orchestra = st.text_input("오케스트라", value=selected_lp["Orchestra"])
-        location = st.text_input("위치", value=selected_lp["location"])
+  # 선택된 LP 데이터 로드
+if lp_to_edit:
+    selected_lp = df[df["Title"] == lp_to_edit].iloc[0]
+    
+    # 수정할 값 입력 폼
+    title = st.text_input("앨범 제목", value=selected_lp["Title"])
+    artist = st.text_input("아티스트", value=selected_lp["Artist"])
+    year = st.text_input("발매 연도", value=selected_lp["Year"])
+    genre = st.text_input("장르", value=selected_lp["Genre"])
+    collaborators = st.text_input("협연자", value=selected_lp["Collaborators"])
+    orchestra = st.text_input("오케스트라", value=selected_lp["Orchestra"])
+    
+    # "location" 컬럼이 없다면 빈 문자열("")을 기본값으로 사용
+    location = st.text_input("위치", value=selected_lp.get("location", ""))
 
-        if st.button("수정"):
-            # 수정된 데이터 업데이트
-            df.loc[df["Title"] == lp_to_edit, "Title"] = title
-            df.loc[df["Title"] == lp_to_edit, "Artist"] = artist
-            df.loc[df["Title"] == lp_to_edit, "Year"] = year
-            df.loc[df["Title"] == lp_to_edit, "Genre"] = genre
-            df.loc[df["Title"] == lp_to_edit, "Collaborators"] = collaborators
-            df.loc[df["Title"] == lp_to_edit, "Orchestra"] = orchestra
-            df.loc[df["Title"] == lp_to_edit, "location"] = location
+    if st.button("수정"):
+        # 수정된 데이터 업데이트
+        df.loc[df["Title"] == lp_to_edit, "Title"] = title
+        df.loc[df["Title"] == lp_to_edit, "Artist"] = artist
+        df.loc[df["Title"] == lp_to_edit, "Year"] = year
+        df.loc[df["Title"] == lp_to_edit, "Genre"] = genre
+        df.loc[df["Title"] == lp_to_edit, "Collaborators"] = collaborators
+        df.loc[df["Title"] == lp_to_edit, "Orchestra"] = orchestra
+        df.loc[df["Title"] == lp_to_edit, "location"] = location
 
-            save_data(df)
-            st.success("✅ LP 수정 완료!")
+        save_data(df)
+        st.success("✅ LP 수정 완료!")
