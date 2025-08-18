@@ -10,7 +10,7 @@ def load_data():
         return pd.read_csv(DATA_FILE)
     except FileNotFoundError:
         return pd.DataFrame(columns=[
-            "Title", "Artist", "Year", "Genre", "Collaborators", "Orchestra"
+            "Title", "Artist", "Year", "Genre", "Collaborators", "Orchestra", "location"
         ])
 
 # CSV 저장하기
@@ -32,6 +32,7 @@ if menu == "추가하기":
     genre = st.text_input("장르")
     collaborators = st.text_input("협연자")
     orchestra = st.text_input("오케스트라")
+    location = st.text_input("위치")
 
     if st.button("추가"):
         new_row = {
@@ -41,6 +42,7 @@ if menu == "추가하기":
             "Genre": genre,
             "Collaborators": collaborators,
             "Orchestra": orchestra
+            "location": location
         }
 
         # append 대신 concat 사용
@@ -53,7 +55,7 @@ if menu == "추가하기":
 # ----------------- LP 검색 -----------------
 elif menu == "검색하기":
     st.header("LP 검색하기")
-    query = st.text_input("검색어 입력 (제목, 아티스트, 장르, 협연자, 오케스트라)")
+    query = st.text_input("검색어 입력 (제목, 아티스트, 장르, 협연자, 오케스트라, 위치)")
     if query:
         # 모든 컬럼에서 검색어 포함 여부 확인
         results = df[df.apply(lambda row: row.astype(str).str.lower().str.contains(query.lower()).any(), axis=1)]
