@@ -1,0 +1,6 @@
+.DS_Store
+.streamlit/
+venv/
+.venv/
+__pycache__/
+lp_collection.csv
